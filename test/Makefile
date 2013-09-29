@@ -118,9 +118,9 @@ _FILES_C_OBJ_BUILD              = $(call XEOS_FUNC_C_OBJ,$(PATH_BUILD_32_MODULES
 all:    $(_FILES_C_OBJ_BUILD)
 	
 	@$(PRINT) $(PROMPT)$(COLOR_CYAN)"Generating the kernel module file"$(COLOR_NONE)" [ 32 bits ]: "$(COLOR_GRAY)"test$(EXT_KMOD)"$(COLOR_NONE)
-	@$(LD_32) $(ARGS_LD_32) -o $(PATH_BUILD_32_MODULES_BIN)test$(EXT_KMOD) $(PATH_BUILD_32_MODULES_OBJ_TEST)*$(EXT_OBJ)
+	@$(LD_32) $(ARGS_LD_32) -r -o $(PATH_BUILD_32_MODULES_BIN)test$(EXT_KMOD) $(PATH_BUILD_32_MODULES_OBJ_TEST)*$(EXT_OBJ)
 	@$(PRINT) $(PROMPT)$(COLOR_CYAN)"Generating the kernel module file"$(COLOR_NONE)" [ 64 bits ]: "$(COLOR_GRAY)"test$(EXT_KMOD)"$(COLOR_NONE)
-	@$(LD_64) $(ARGS_LD_64) -o $(PATH_BUILD_64_MODULES_BIN)test$(EXT_KMOD) $(PATH_BUILD_64_MODULES_OBJ_TEST)*$(EXT_OBJ)
+	@$(LD_64) $(ARGS_LD_64) -r -o $(PATH_BUILD_64_MODULES_BIN)test$(EXT_KMOD) $(PATH_BUILD_64_MODULES_OBJ_TEST)*$(EXT_OBJ)
 
 # Cleans the build files
 clean:
