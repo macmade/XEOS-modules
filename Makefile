@@ -65,7 +65,7 @@ include ../../Makefile-Config.mk
 # Display
 #-------------------------------------------------------------------------------
 
-PROMPT              := "    ["$(COLOR_GREEN)" XEOS "$(COLOR_NONE)"]> ["$(COLOR_GREEN)" SRC  "$(COLOR_NONE)"]> ["$(COLOR_GREEN)" KMOD "$(COLOR_NONE)"]>           *** "
+PROMPT  := "    ["$(COLOR_GREEN)" XEOS "$(COLOR_NONE)"]> ["$(COLOR_GREEN)" SRC  "$(COLOR_NONE)"]> ["$(COLOR_GREEN)" KMOD "$(COLOR_NONE)"]>           *** "
 
 #-------------------------------------------------------------------------------
 # Built-in targets
@@ -82,11 +82,9 @@ PROMPT              := "    ["$(COLOR_GREEN)" XEOS "$(COLOR_NONE)"]> ["$(COLOR_G
 all:
 	
 	@$(PRINT) $(PROMPT)$(COLOR_CYAN)"Building the XEOS test kernel module"$(COLOR_NONE)
-	@$(CD) $(PATH_SRC_MODULES_TEST) && $(MAKE)
+	@$(CD) $(PATH_SRC_MODULES_TEST) && $(MAKE) $(ARGS_MAKE)
 	
 # Cleans the build files
 clean:
 	
-	@$(CD) $(PATH_SRC_MODULES_TEST) && $(MAKE) clean
-	@$(RM) $(ARGS_RM) $(PATH_BUILD_32_MODULES_BIN)*
-	@$(RM) $(ARGS_RM) $(PATH_BUILD_64_MODULES_BIN)*
+	@$(CD) $(PATH_SRC_MODULES_TEST) && $(MAKE) $(ARGS_MAKE_CLEAN)

@@ -75,56 +75,33 @@ ARGS_LD_32          := -T ../linker.ld $(ARGS_LD_32)
 ARGS_LD_64          := -T ../linker.ld $(ARGS_LD_64)
 
 #-------------------------------------------------------------------------------
-# Paths
-#-------------------------------------------------------------------------------
-
-
-
-#-------------------------------------------------------------------------------
-# Search paths
-#-------------------------------------------------------------------------------
-
-# Define the search paths for source files
-vpath %$(EXT_C)         $(PATH_SRC_MODULES_TEST)
-
-#-------------------------------------------------------------------------------
-# File suffixes
-#-------------------------------------------------------------------------------
-
-# Adds the suffixes used in this file
-.SUFFIXES:  $(EXT_C)        \
-            $(EXT_H)        \
-            $(EXT_OBJ)
-
-#-------------------------------------------------------------------------------
 # Files
 #-------------------------------------------------------------------------------
 
-_FILES_C_OBJ_BUILD              = $(call XEOS_FUNC_C_OBJ,$(PATH_BUILD_32_MODULES_OBJ_TEST),$(PATH_SRC_MODULES_TEST))
+#_FILES  = $(call XEOS_FUNC_C_OBJ,$(PATH_SRC_MODULES_TEST))
 
 #-------------------------------------------------------------------------------
 # Built-in targets
 #-------------------------------------------------------------------------------
 
 # Declaration for phony targets, to avoid problems with local files
-.PHONY: all     \
-        clean
+.PHONY: all clean
 
 #-------------------------------------------------------------------------------
 # Phony targets
 #-------------------------------------------------------------------------------
 
 # Build the full project
-all:    $(_FILES_C_OBJ_BUILD)
+all: $(_FILES)
 	
-	@$(PRINT) $(PROMPT)$(COLOR_CYAN)"Generating the kernel module file"$(COLOR_NONE)" [ 32 bits ]: "$(COLOR_GRAY)"test$(EXT_KMOD)"$(COLOR_NONE)
-	@$(LD_32) $(ARGS_LD_32) -r -o $(PATH_BUILD_32_MODULES_BIN)test$(EXT_KMOD) $(PATH_BUILD_32_MODULES_OBJ_TEST)*$(EXT_OBJ)
-	@$(PRINT) $(PROMPT)$(COLOR_CYAN)"Generating the kernel module file"$(COLOR_NONE)" [ 64 bits ]: "$(COLOR_GRAY)"test$(EXT_KMOD)"$(COLOR_NONE)
-	@$(LD_64) $(ARGS_LD_64) -r -o $(PATH_BUILD_64_MODULES_BIN)test$(EXT_KMOD) $(PATH_BUILD_64_MODULES_OBJ_TEST)*$(EXT_OBJ)
+#	@$(PRINT) $(PROMPT)$(COLOR_CYAN)"Generating the kernel module file"$(COLOR_NONE)" [ 32 bits ]: "$(COLOR_GRAY)"test$(EXT_KMOD)"$(COLOR_NONE)
+#	@$(LD_32) $(ARGS_LD_32) -r -o $(PATH_BUILD_32_MODULES_BIN)test$(EXT_KMOD) $(PATH_BUILD_32_MODULES_OBJ_TEST)*$(EXT_OBJ)
+#	@$(PRINT) $(PROMPT)$(COLOR_CYAN)"Generating the kernel module file"$(COLOR_NONE)" [ 64 bits ]: "$(COLOR_GRAY)"test$(EXT_KMOD)"$(COLOR_NONE)
+#	@$(LD_64) $(ARGS_LD_64) -r -o $(PATH_BUILD_64_MODULES_BIN)test$(EXT_KMOD) $(PATH_BUILD_64_MODULES_OBJ_TEST)*$(EXT_OBJ)
 
 # Cleans the build files
 clean:
 	
-	@$(PRINT) $(PROMPT)"Cleaning all build files"
-	@$(RM) $(ARGS_RM) $(PATH_BUILD_32_MODULES_OBJ_TEST)*
-	@$(RM) $(ARGS_RM) $(PATH_BUILD_64_MODULES_OBJ_TEST)*
+#	@$(PRINT) $(PROMPT)"Cleaning all build files"
+#	@$(RM) $(ARGS_RM) $(PATH_BUILD_32_MODULES_OBJ_TEST)*
+#	@$(RM) $(ARGS_RM) $(PATH_BUILD_64_MODULES_OBJ_TEST)*
