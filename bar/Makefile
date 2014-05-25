@@ -59,13 +59,26 @@
 
 # $Id$
 
-include ../../Makefile-Config.mk
+include ../../../Makefile-Config.mk
 
 #-------------------------------------------------------------------------------
 # Display
 #-------------------------------------------------------------------------------
 
-PROMPT  := "    ["$(COLOR_GREEN)" XEOS "$(COLOR_NONE)"]> ["$(COLOR_GREEN)" SRC  "$(COLOR_NONE)"]> ["$(COLOR_GREEN)" KEXT "$(COLOR_NONE)"]>           *** "
+PROMPT              := "    ["$(COLOR_GREEN)" XEOS "$(COLOR_NONE)"]> ["$(COLOR_GREEN)" SRC  "$(COLOR_NONE)"]> ["$(COLOR_GREEN)" KEXT "$(COLOR_NONE)"]> ["$(COLOR_GREEN)" BAR  "$(COLOR_NONE)"]> *** "
+
+#-------------------------------------------------------------------------------
+# Software arguments
+#-------------------------------------------------------------------------------
+
+ARGS_LD_32          := -T ../linker.ld $(ARGS_LD_32)
+ARGS_LD_64          := -T ../linker.ld $(ARGS_LD_64)
+
+#-------------------------------------------------------------------------------
+# Files
+#-------------------------------------------------------------------------------
+
+_FILES  = $(call XEOS_FUNC_C_OBJ,$(PATH_SRC_MODULES_BAR))
 
 #-------------------------------------------------------------------------------
 # Built-in targets
@@ -79,16 +92,19 @@ PROMPT  := "    ["$(COLOR_GREEN)" XEOS "$(COLOR_NONE)"]> ["$(COLOR_GREEN)" SRC  
 #-------------------------------------------------------------------------------
 
 # Build the full project
-all:
+all: $(_FILES)
 	
-	@$(PRINT) $(PROMPT)$(COLOR_CYAN)"Building the XEOS test kernel module (foo)"$(COLOR_NONE)
-	@$(CD) $(PATH_SRC_MODULES_FOO) && $(MAKE) $(ARGS_MAKE)
+	@$(PRINT) $(PROMPT)$(COLOR_CYAN)"Generating the kernel module file"$(COLOR_NONE)" [ 32 bits ]: "$(COLOR_GRAY)"bar$(EXT_KEXT)"$(COLOR_NONE)
+	@$(LD_32) -r $(call XEOS_FUNC_FILES_OBJECT_32,$^) -o $(PATH_BUILD_32_BIN)bar$(EXT_KEXT)
 	
-	@$(PRINT) $(PROMPT)$(COLOR_CYAN)"Building the XEOS test kernel module (bar)"$(COLOR_NONE)
-	@$(CD) $(PATH_SRC_MODULES_BAR) && $(MAKE) $(ARGS_MAKE)
-	
+	@$(PRINT) $(PROMPT)$(COLOR_CYAN)"Generating the kernel module file"$(COLOR_NONE)" [ 64 bits ]: "$(COLOR_GRAY)"bar$(EXT_KEXT)"$(COLOR_NONE)
+	@$(LD_64) -r $(call XEOS_FUNC_FILES_OBJECT_64,$^) -o $(PATH_BUILD_64_BIN)bar$(EXT_KEXT)
+
 # Cleans the build files
 clean:
 	
-	@$(CD) $(PATH_SRC_MODULES_FOO) && $(MAKE) $(ARGS_MAKE_CLEAN)
-	@$(CD) $(PATH_SRC_MODULES_BAR) && $(MAKE) $(ARGS_MAKE_CLEAN)
+	@$(PRINT) $(PROMPT)"Cleaning all build files"
+	@$(RM) $(ARGS_RM) $(PATH_BUILD_32_OBJ)$(subst $(PATH_SRC),,$(PATH_SRC_MODULES_BAR))
+	@$(RM) $(ARGS_RM) $(PATH_BUILD_64_OBJ)$(subst $(PATH_SRC),,$(PATH_SRC_MODULES_BAR))
+	@$(RM) $(ARGS_RM) $(PATH_BUILD_32_BIN)bar$(EXT_KEXT)
+	@$(RM) $(ARGS_RM) $(PATH_BUILD_64_BIN)bar$(EXT_KEXT)

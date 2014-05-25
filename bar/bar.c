@@ -61,6 +61,6 @@
 
 /* $Id$ */
 
-void kmod_init( void );
-void kmod_init( void )
+void kext_init( void );
+void kext_init( void )
 {}

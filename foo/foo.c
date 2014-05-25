@@ -61,36 +61,6 @@
 
 /* $Id$ */
 
-/* Modules entry point */
-ENTRY( kext_init )
-
-/* Setup for the available sections */
-SECTIONS
-{
-    /* Machine code */
-    .text :
-    {
-        *( .text )
-    }
-    
-    /* Constant data */
-    .rodata ALIGN( 0x1000 ) :
-    {
-        *( .rodata )
-    }
-    
-    /* Initialized data */
-    .data ALIGN( 0x1000 ) :
-    {
-        *( .data )
-    }
-    
-    /* Uninitialized data */
-    .bss ALIGN( 0x1000 ) :
-    {
-        sbss = .;
-        *( COMMON )
-        *( .bss )
-        ebss = .;
-    }
-}
+void kext_init( void );
+void kext_init( void )
+{}
