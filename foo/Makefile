@@ -59,52 +59,17 @@
 
 # $Id$
 
-include ../../../Makefile-Config.mk
+include ../make/Config.mk
+include ../make/Targets.mk
 
-#-------------------------------------------------------------------------------
-# Display
-#-------------------------------------------------------------------------------
+PROMPT  := XEOS SOURCE MODULES FOO
+DEPS    := 
+FILES   := 
 
-PROMPT              := "    ["$(COLOR_GREEN)" XEOS "$(COLOR_NONE)"]> ["$(COLOR_GREEN)" SRC  "$(COLOR_NONE)"]> ["$(COLOR_GREEN)" KEXT "$(COLOR_NONE)"]> ["$(COLOR_GREEN)" FOO  "$(COLOR_NONE)"]> *** "
-
-#-------------------------------------------------------------------------------
-# Software arguments
-#-------------------------------------------------------------------------------
-
-ARGS_LD_32          := -T ../linker.ld $(ARGS_LD_32)
-ARGS_LD_64          := -T ../linker.ld $(ARGS_LD_64)
-
-#-------------------------------------------------------------------------------
-# Files
-#-------------------------------------------------------------------------------
-
-_FILES  = $(call XEOS_FUNC_C_OBJ,$(PATH_SRC_MODULES_FOO))
-
-#-------------------------------------------------------------------------------
-# Built-in targets
-#-------------------------------------------------------------------------------
-
-# Declaration for phony targets, to avoid problems with local files
-.PHONY: all clean
-
-#-------------------------------------------------------------------------------
-# Phony targets
-#-------------------------------------------------------------------------------
-
-# Build the full project
-all: $(_FILES)
+all:
 	
-	@$(PRINT) $(PROMPT)$(COLOR_CYAN)"Generating the kernel module file"$(COLOR_NONE)" [ 32 bits ]: "$(COLOR_GRAY)"foo$(EXT_KEXT)"$(COLOR_NONE)
-	@$(LD_32) -r $(call XEOS_FUNC_FILES_OBJECT_32,$^) -o $(PATH_BUILD_32_BIN)foo$(EXT_KEXT)
+	@:
 	
-	@$(PRINT) $(PROMPT)$(COLOR_CYAN)"Generating the kernel module file"$(COLOR_NONE)" [ 64 bits ]: "$(COLOR_GRAY)"foo$(EXT_KEXT)"$(COLOR_NONE)
-	@$(LD_64) -r $(call XEOS_FUNC_FILES_OBJECT_64,$^) -o $(PATH_BUILD_64_BIN)foo$(EXT_KEXT)
-
-# Cleans the build files
 clean:
 	
-	@$(PRINT) $(PROMPT)"Cleaning all build files"
-	@$(RM) $(ARGS_RM) $(PATH_BUILD_32_OBJ)$(subst $(PATH_SRC),,$(PATH_SRC_MODULES_FOO))
-	@$(RM) $(ARGS_RM) $(PATH_BUILD_64_OBJ)$(subst $(PATH_SRC),,$(PATH_SRC_MODULES_FOO))
-	@$(RM) $(ARGS_RM) $(PATH_BUILD_32_BIN)foo$(EXT_KEXT)
-	@$(RM) $(ARGS_RM) $(PATH_BUILD_64_BIN)foo$(EXT_KEXT)
+	@:

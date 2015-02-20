@@ -59,36 +59,21 @@
 
 # $Id$
 
-include ../../Makefile-Config.mk
+include make/Config.mk
+include make/Targets.mk
 
-#-------------------------------------------------------------------------------
-# Display
-#-------------------------------------------------------------------------------
+PROMPT  := XEOS SOURCE MODULES
+DEPS    := 
+FILES   := 
 
-PROMPT  := "    ["$(COLOR_GREEN)" XEOS "$(COLOR_NONE)"]> ["$(COLOR_GREEN)" SRC  "$(COLOR_NONE)"]> ["$(COLOR_GREEN)" KEXT "$(COLOR_NONE)"]>           *** "
-
-#-------------------------------------------------------------------------------
-# Built-in targets
-#-------------------------------------------------------------------------------
-
-# Declaration for phony targets, to avoid problems with local files
-.PHONY: all clean
-
-#-------------------------------------------------------------------------------
-# Phony targets
-#-------------------------------------------------------------------------------
-
-# Build the full project
 all:
 	
-	@$(PRINT) $(PROMPT)$(COLOR_CYAN)"Building the XEOS test kernel module (foo)"$(COLOR_NONE)
-	@$(CD) $(PATH_SRC_MODULES_FOO) && $(MAKE) $(ARGS_MAKE)
+	$(call PRINT,$(COLOR_CYAN)Building the 'foo' test module$(COLOR_NONE))
+	@cd foo && $(MAKE)
+	$(call PRINT,$(COLOR_CYAN)Building the 'bar' test module$(COLOR_NONE))
+	@cd bar && $(MAKE)
 	
-	@$(PRINT) $(PROMPT)$(COLOR_CYAN)"Building the XEOS test kernel module (bar)"$(COLOR_NONE)
-	@$(CD) $(PATH_SRC_MODULES_BAR) && $(MAKE) $(ARGS_MAKE)
-	
-# Cleans the build files
 clean:
 	
-	@$(CD) $(PATH_SRC_MODULES_FOO) && $(MAKE) $(ARGS_MAKE_CLEAN)
-	@$(CD) $(PATH_SRC_MODULES_BAR) && $(MAKE) $(ARGS_MAKE_CLEAN)
+	@cd foo && $(MAKE) clean
+	@cd bar && $(MAKE) clean
