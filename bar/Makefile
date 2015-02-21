@@ -64,12 +64,12 @@ include ../make/Targets.mk
 
 PROMPT  := XEOS SOURCE MODULES FOO
 DEPS    := 
-FILES   := 
+FILES   := $(call XEOS_FUNC_C_FILES,$(DIR_SRC))
 
-all:
+all: obj-build
 	
 	@:
 	
-clean:
+clean: obj-clean
 	
 	@:
