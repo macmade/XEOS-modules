@@ -62,18 +62,17 @@
 include make/Config.mk
 include make/Targets.mk
 
+.NOTPARALLEL:
+
 PROMPT  := XEOS SOURCE MODULES
 DEPS    := 
 FILES   := 
+TARGETS := foo bar
 
-all:
+all: build-sub
 	
-	$(call PRINT,$(COLOR_CYAN)Building the 'foo' test module$(COLOR_NONE))
-	@cd foo && $(MAKE)
-	$(call PRINT,$(COLOR_CYAN)Building the 'bar' test module$(COLOR_NONE))
-	@cd bar && $(MAKE)
+	@:
+
+clean: clean-sub
 	
-clean:
-	
-	@cd foo && $(MAKE) clean
-	@cd bar && $(MAKE) clean
+	@:
